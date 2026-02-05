@@ -25,7 +25,7 @@ def compute_mandelbrot_grid(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, ma
 
     grid_colour_values = []
     for point in point_list:
-        print("processing")
+        # print("processing")
         grid_colour_values.append(
             mandelbrot_point(point[0], point[1], max_iter=max_iter))
 
@@ -33,18 +33,17 @@ def compute_mandelbrot_grid(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, ma
 
     grid_np_array = grid_np_array.reshape(dimsize_x, dimsize_y)
 
-    print(grid_colour_values)
+    # print(grid_colour_values)
 
-    plt.imshow(grid_np_array, cmap='hot', vmin=0, vmax=100)
-    plt.show()
+    # plt.imshow(grid_np_array, cmap='hot', vmin=0, vmax=100)
+    # plt.show()
 
 
 start = time.time()
 
 compute_mandelbrot_grid(-2, 1, -1.5, 1.5, 1024, 1024, max_iter=100)
 
-end = time.time()
 
-period = end-start
+elapsed = time.time() - start
 
-print("time taken", period)
+print(f" Computation took {elapsed:.3f} seconds ")
