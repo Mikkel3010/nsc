@@ -18,11 +18,37 @@ def benchmark(func, *args, n_runs=3):
 
 # print("h")
 # # naive
-# t , M = benchmark(mandelbrot.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , 1024 , 1024 , 100)
+t , M = benchmark(mandelbrot.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , 1024 , 1024 , 100)
+
+
+# runtime Median: 3.3566s (min=3.3511, max=3.3771)
+
 
 # numpy vector (lecture 2)
 
-t , M = benchmark(mandelbrot_numpy.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , 1024 , 1024 , 100)
+# t , M = benchmark(mandelbrot_numpy.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , 1024 , 1024 , 100)
+# print(t)
+# print(M)
 
-print(t)
-print(M)
+# runtime  Median: 0.6365s (min=0.6208, max=0.6400)
+
+
+
+
+
+
+
+
+
+
+
+# for lec2 milestone 4
+
+# time_results = []
+# for size in [256,512,1024,2048, 4096]:
+#     print("size: ", size )
+#     t , M = benchmark(mandelbrot_numpy.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , size , size , 100)
+#     print(t)
+#     print(M)
+
+#     time_results.append((size, t))
