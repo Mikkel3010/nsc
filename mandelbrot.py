@@ -11,7 +11,7 @@ def mandelbrot_point(x, y, max_iter):
     z = 0
     c = x + 1j*y
     iter_count = 0
-    while abs(z) < 2 and iter_count < 100:
+    while abs(z) < 2 and iter_count < max_iter:
         z = z**2 + c
         iter_count += 1
     return iter_count
@@ -33,17 +33,13 @@ def compute_mandelbrot_grid(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, ma
 
     grid_np_array = grid_np_array.reshape(dimsize_x, dimsize_y)
 
-"""     print(grid_colour_values)
+    #print(grid_colour_values)
 
-    plt.imshow(grid_np_array, cmap='hot', vmin=0, vmax=100)
-    plt.show() """
-
-
-start = time.time()
-
-compute_mandelbrot_grid(-2, 1, -1.5, 1.5, 1024, 1024, max_iter=100)
+    #plt.imshow(grid_np_array, cmap='hot', vmin=0, vmax=100)
+    #plt.show()
+    return grid_np_array
 
 
-elapsed = time.time() - start
+#compute_mandelbrot_grid(-2, 1, -1.5, 1.5, 8192, 8192, max_iter=100)
 
-print(f" Computation took {elapsed:.3f} seconds ")
+#print(f" Computation took {elapsed:.3f} seconds ")
