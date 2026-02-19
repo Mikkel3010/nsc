@@ -4,9 +4,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-test_point = 1 + 1j*0.5
-
-
 
 def compute_mandelbrot_grid(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter):
     x = np.linspace(x_min, x_max, dimsize_x)
@@ -17,18 +14,14 @@ def compute_mandelbrot_grid(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, ma
     # print (f" Type : {C. dtype }") # complex128
 
     Z = np.zeros_like(C)
-    M = np.zeros_like(C, dtype=int)
+    M = np.zeros_like(C, dtype=np.int16)
 
     iter_count = 0
     for i in range(max_iter):
         mask = np.abs(Z) <=2
-        if not np.any(mask):
-            print("break due to no changes")
-            break
         # print(iter_count)
         iter_count += 1
     
-
         Z[mask] = Z[mask]**2 + C[mask]
 
         M[mask] += 1
@@ -40,11 +33,11 @@ def compute_mandelbrot_grid(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, ma
     # plt.show()
 
 
-start = time.time()
+# start = time.time()
 
-compute_mandelbrot_grid(-2, 1, -1.5, 1.5, 1024, 1024, max_iter=100)
+# compute_mandelbrot_grid(-2, 1, -1.5, 1.5, 1024, 1024, max_iter=100)
 
 
-elapsed = time.time() - start
+# elapsed = time.time() - start
 
-print(f" Computation took {elapsed:.3f} seconds ")
+# print(f" Computation took {elapsed:.3f} seconds ")

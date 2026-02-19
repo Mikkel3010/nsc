@@ -1,5 +1,6 @@
 import time , statistics
 import mandelbrot
+import mandelbrot_numpy
 
 def benchmark(func, *args, n_runs=3):
     """Time func, return median of n_runs."""
@@ -15,8 +16,13 @@ def benchmark(func, *args, n_runs=3):
     )
     return median_t, result
 
-print("h")
+# print("h")
+# # naive
+# t , M = benchmark(mandelbrot.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , 1024 , 1024 , 100)
 
-t , M = benchmark(mandelbrot.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , 1024 , 1024 , 100)
+# numpy vector (lecture 2)
+
+t , M = benchmark(mandelbrot_numpy.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , 1024 , 1024 , 100)
+
 print(t)
 print(M)
