@@ -1,6 +1,6 @@
 import time , statistics
-import mandelbrot
-import mandelbrot_numpy
+from mandelbrot_naive import compute_mandelbrot_grid_naive
+from mandelbrot_numpy import compute_mandelbrot_grid_numpy
 
 def benchmark(func, *args, n_runs=3):
     """Time func, return median of n_runs."""
@@ -18,7 +18,14 @@ def benchmark(func, *args, n_runs=3):
 
 # print("h")
 # # naive
-t , M = benchmark(mandelbrot.compute_mandelbrot_grid, -2, 1, -1.5 , 1.5 , 1024 , 1024 , 100)
+width , height = 1024 , 1024
+args = (-2 ,1,-1.5, 1.5, width ,height, 100)
+t_naive = benchmark(compute_mandelbrot_grid_naive , * args )[0]
+t_numpy = benchmark(compute_mandelbrot_grid_numpy , * args )[0]
+# t_numba = benchmark() mandelbrot_naive_numba , * args )
+print (f" Naive : { t_naive :.3f}s")
+print (f" NumPy : { t_numpy :.3f}s ({ t_naive / t_numpy :.1f}x)")
+# print (f" Numba : { t_numba :.3f}s ({ t_naive / t_numba :.1f}x)")
 
 
 # runtime Median: 3.3566s (min=3.3511, max=3.3771)

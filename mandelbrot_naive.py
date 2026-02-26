@@ -17,7 +17,7 @@ def mandelbrot_point(x, y, max_iter):
     return iter_count
 
 
-def compute_mandelbrot_grid(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter):
+def compute_mandelbrot_grid_naive(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter):
     point_list = []
     for x in np.linspace(x_min, x_max, num=dimsize_x):
         for y in np.linspace(y_min, y_max, num=dimsize_y):
