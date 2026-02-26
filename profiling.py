@@ -19,5 +19,9 @@ def profile(func, *args, prof_file: str, top_n: int = 10, sort_by: str = "cumula
 if __name__ == "__main__":
     params = (-2, 1, -1.5, 1.5, 1024, 1024, 100)
 
-    profile(compute_mandelbrot_grid_naive, *params, prof_file="naive_profile.prof")
-    profile(compute_mandelbrot_grid_numpy, *params, prof_file="numpy_profile.prof")
+    # profile(compute_mandelbrot_grid_naive, *params, prof_file="naive_profile.prof")
+    # profile(compute_mandelbrot_grid_numpy, *params, prof_file="numpy_profile.prof")
+
+    # for line profiler.
+    # compute_mandelbrot_grid_naive(*params)
+    results = compute_mandelbrot_grid_numpy(*params)

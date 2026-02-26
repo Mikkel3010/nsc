@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-
+@profile
 def compute_mandelbrot_grid_numpy(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter):
     x = np.linspace(x_min, x_max, dimsize_x)
     y = np.linspace(y_min, y_max, dimsize_y)
@@ -36,6 +36,12 @@ def compute_mandelbrot_grid_numpy(x_min, x_max, y_min, y_max, dimsize_x, dimsize
 
 
 # start = time.time()
+
+
+# params = (-2, 1, -1.5, 1.5, 1024, 1024, 100)
+
+
+# compute_mandelbrot_grid_numpy(*params)
 
 # compute_mandelbrot_grid(-2, 1, -1.5, 1.5, 1024, 1024, max_iter=100)
 

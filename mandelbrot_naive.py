@@ -6,7 +6,7 @@ import pandas as pd
 
 test_point = 1 + 1j*0.5
 
-
+@profile
 def mandelbrot_point(x, y, max_iter):
     z = 0
     c = x + 1j*y
@@ -16,7 +16,7 @@ def mandelbrot_point(x, y, max_iter):
         iter_count += 1
     return iter_count
 
-
+@profile
 def compute_mandelbrot_grid_naive(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter):
     point_list = []
     for x in np.linspace(x_min, x_max, num=dimsize_x):
@@ -39,6 +39,10 @@ def compute_mandelbrot_grid_naive(x_min, x_max, y_min, y_max, dimsize_x, dimsize
     #plt.show()
     return grid_np_array
 
+params = (-2, 1, -1.5, 1.5, 1024, 1024, 100)
+
+
+compute_mandelbrot_grid_naive(*params)
 
 #compute_mandelbrot_grid(-2, 1, -1.5, 1.5, 8192, 8192, max_iter=100)
 
