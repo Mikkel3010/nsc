@@ -25,3 +25,6 @@ if __name__ == "__main__":
     # for line profiler.
     # compute_mandelbrot_grid_naive(*params)
     results = compute_mandelbrot_grid_numpy(*params)
+
+
+    

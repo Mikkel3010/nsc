@@ -4,8 +4,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 
-@profile
-def compute_mandelbrot_grid_numpy(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter):
+# @profile
+def compute_mandelbrot_grid_numpy(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter, dtype=np.float64):
     x = np.linspace(x_min, x_max, dimsize_x)
     y = np.linspace(y_min, y_max, dimsize_y)
     X, Y = np.meshgrid(x,y)
