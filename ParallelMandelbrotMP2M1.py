@@ -34,23 +34,12 @@ def mandelbrot_chunk(row_start, row_end, N, x_min, x_max, y_min, y_max, max_iter
 
 
 def mandelbrot_serial(N, x_min, x_max, y_min, y_max, max_iter=100):
+    print()
     return mandelbrot_chunk(0, N, N, x_min, x_max, y_min, y_max, max_iter)
 
 
 
-    #print(result)
+parameters = (1024, -2, 1, -1.5, 1.5, 100)
 
-    #plt.imshow(result, cmap='hot', vmin=0, vmax=100)
-    #plt.show()
-    return result
-for i in range(3):
-    start = time.time()
-    mandelbrot_serial(1024, -2, 1, -1.5, 1.5, max_iter=100)
-    elapsed = time.time()-start
-print(f" Computation took {elapsed:.3f} seconds ")
-
-parameters = (1024, -2, 1, -1,5, 1.5, 100)
-
-results = benchmark(mandelbrot_serial, parameters, ignore_dtype=True)
-
-print (f" Naive : { results :.3f}s")
+results = benchmark(mandelbrot_serial, *parameters, ignore_dtype=True)
+print (f" Chunk-L4-M1 : { results[0]:.3f}s")
