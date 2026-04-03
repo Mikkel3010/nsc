@@ -49,9 +49,11 @@ def _worker(args):
     return mandelbrot_chunk(*args)
 
 
-def mandelbrot_parallel(N, x_min, x_max, y_min, y_max, max_iter=100, n_workers=4, n_chunks=None, pool=None,):
+def mandelbrot_parallel(N, x_min, x_max, y_min, y_max, max_iter, n_workers, n_chunks, pool=None,):
     if n_chunks is None:
         n_chunks = n_workers
+    # print("Runnings parameters")
+    # print(N, x_min, x_max, y_min, y_max, max_iter, n_workers, n_chunks, pool,)
 
     chunk_size = max(1, N // n_chunks)
     chunks, row = [], 0
@@ -75,13 +77,58 @@ def mandelbrot_parallel(N, x_min, x_max, y_min, y_max, max_iter=100, n_workers=4
 
 if __name__ == "__main__":
 
+    # L5-M2 and M3-------------------------------------------------------------------
+    N, max_iter = 1024, 100
+    n_workers = 6  # My optimum was 6
+    X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
 
-    parameters_ = (1024, -2, 1, -1.5, 1.5, 100)
-    # M1 test
-    results_serial = benchmark(mandelbrot_serial, *parameters_, ignore_dtype=True)
-    print (f" Chunk-L4-M1 : { results_serial[0]:.3f}s")
+    # warm up JIT
+    mandelbrot_chunk(0, 8, 8, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)
+
+    # Serial baseline
+    times = []
+    for _ in range(3):
+        t0 = time.perf_counter()
+        mandelbrot_chunk(0, N, N, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)
+        times.append(time.perf_counter() - t0)
 
 
+
+    t_serial = statistics.median(times)
+    print(f"Serial: {t_serial:.3f}s")
+
+    # Chunk-count sweep (M2): one Pool per config
+    tiny = [(0, 8, 8, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)]
+
+    for mult in [1, 2, 4, 8, 16]:
+        n_chunks = mult * n_workers
+
+        with Pool(processes=n_workers) as pool:
+            # warm-up: load JIT cache in workers
+            pool.map(_worker, tiny)
+
+            times = []
+            for _ in range(3):
+                t0 = time.perf_counter()
+                mandelbrot_parallel(
+                    N,
+                    X_MIN,
+                    X_MAX,
+                    Y_MIN,
+                    Y_MAX,
+                    max_iter,
+                    n_workers=n_workers,
+                    n_chunks=n_chunks,
+                    pool=pool,
+                )
+                times.append(time.perf_counter() - t0)
+
+        t_par = statistics.median(times)
+        lif = n_workers * t_par / t_serial - 1
+
+        print(f"{n_chunks:4d} chunks {t_par:.3f}s {t_serial/t_par:.1f}x LIF={lif:.2f}")
+
+    #-------------------------------------------------
 
     # speedup_results = []
 
