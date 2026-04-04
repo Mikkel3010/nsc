@@ -90,9 +90,21 @@ def mandelbrot_dask(N, x_min, x_max, y_min, y_max,
 if __name__ == "__main__":
     
     # # L6-M1 ---------------------------------------------------------------
-    N, max_iter = 4096, 100
+    N, max_iter = 1024, 100
     X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
     client = Client("tcp://10.92.1.35:8786")
+
+    # Serial numba baseline for server
+
+    # Serial baseline
+    times = []
+    for _ in range(3):
+        t0 = time.perf_counter()
+        mandelbrot_chunk(0, N, N, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)
+        times.append(time.perf_counter() - t0)
+
+    t_serial = statistics.median(times)
+    print(f"Serial: {t_serial:.3f}s")
 
 
     serial_time = 0.991 #0.059 at 1024, 0.991s at 4096
