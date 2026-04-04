@@ -11,6 +11,9 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 import os
 import statistics
+from dask import delayed
+from dask.distributed import Client, LocalCluster
+import dask, numpy as np, time, statistics
 
 
 # test_point = 1 + 1j*0.5
@@ -73,60 +76,91 @@ def mandelbrot_parallel(N, x_min, x_max, y_min, y_max, max_iter, n_workers, n_ch
 
     return np.vstack(parts)
 
+def mandelbrot_dask(N, x_min, x_max, y_min, y_max,
+    max_iter=100, n_chunks=32):
+    chunk_size = max(1, N // n_chunks)
+    tasks, row = [], 0
+    while row < N:
+        row_end = min(row + chunk_size, N)
+        tasks.append(delayed(mandelbrot_chunk)(
+            row, row_end, N, x_min, x_max, y_min, y_max, max_iter))
+        row = row_end
+    parts = dask.compute(*tasks)
+    return np.vstack(parts)
 
 
 if __name__ == "__main__":
+    
+    # L6-M1 ---------------------------------------------------------------
+    N, max_iter = 1024, 100
+    X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
+    cluster = LocalCluster(n_workers=8, threads_per_worker=1)
+    client = Client(cluster)
+    client.run(lambda: mandelbrot_chunk(0, 8, 8, X_MIN, X_MAX, # warm up all workers
+    Y_MIN, Y_MAX, 10))
+    for n_chunk_size in [1,2,4,8,16,32,64,128,256,512,1024]:
+        times = []
+        for _ in range(3):
+            t0 = time.perf_counter()
+            result = mandelbrot_dask(N, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter, n_chunks=n_chunk_size)
+            times.append(time.perf_counter() - t0)
+                #     lif = n_workers * t_par / t_serial - 1
+        median_t = statistics.median(times)
+        print(f"Dask local (n_chunks=32): {median_t:.3f} s")
+    client.close(); cluster.close()
+
+
 
     # L5-M2 and M3-------------------------------------------------------------------
-    N, max_iter = 1024, 100
-    n_workers = 6  # My optimum was 6
-    X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
+    # N, max_iter = 1024, 100
+    # n_workers = 6  # My optimum was 6
+    # X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
 
-    # warm up JIT
-    mandelbrot_chunk(0, 8, 8, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)
+    # # warm up JIT
+    # mandelbrot_chunk(0, 8, 8, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)
 
-    # Serial baseline
-    times = []
-    for _ in range(3):
-        t0 = time.perf_counter()
-        mandelbrot_chunk(0, N, N, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)
-        times.append(time.perf_counter() - t0)
+    # # Serial baseline
+    # times = []
+    # for _ in range(3):
+    #     t0 = time.perf_counter()
+    #     mandelbrot_chunk(0, N, N, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)
+    #     times.append(time.perf_counter() - t0)
 
 
 
-    t_serial = statistics.median(times)
-    print(f"Serial: {t_serial:.3f}s")
+    # t_serial = statistics.median(times)
+    # print(f"Serial: {t_serial:.3f}s")
 
-    # Chunk-count sweep (M2): one Pool per config
-    tiny = [(0, 8, 8, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)]
+    # # Chunk-count sweep (M2): one Pool per config
+    # tiny = [(0, 8, 8, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter)]
 
-    for mult in [1, 2, 4, 8, 16]:
-        n_chunks = mult * n_workers
+    # for mult in [1, 2, 4, 8, 16]:
+    #     n_chunks = mult * n_workers
 
-        with Pool(processes=n_workers) as pool:
-            # warm-up: load JIT cache in workers
-            pool.map(_worker, tiny)
+    #     with Pool(processes=n_workers) as pool:
+    #         # warm-up: load JIT cache in workers
+    #         pool.map(_worker, tiny)
 
-            times = []
-            for _ in range(3):
-                t0 = time.perf_counter()
-                mandelbrot_parallel(
-                    N,
-                    X_MIN,
-                    X_MAX,
-                    Y_MIN,
-                    Y_MAX,
-                    max_iter,
-                    n_workers=n_workers,
-                    n_chunks=n_chunks,
-                    pool=pool,
-                )
-                times.append(time.perf_counter() - t0)
+    #         times = []
+    #         for _ in range(3):
+    #             t0 = time.perf_counter()
+    #             mandelbrot_parallel(
+    #                 N,
+    #                 X_MIN,
+    #                 X_MAX,
+    #                 Y_MIN,
+    #                 Y_MAX,
+    #                 max_iter,
+    #                 n_workers=n_workers,
+    #                 n_chunks=n_chunks,
+    #                 pool=pool,
+    #             )
+    #             times.append(time.perf_counter() - t0)
 
-        t_par = statistics.median(times)
-        lif = n_workers * t_par / t_serial - 1
+    #     t_par = statistics.median(times)
+    #     lif = n_workers * t_par / t_serial - 1
 
-        print(f"{n_chunks:4d} chunks {t_par:.3f}s {t_serial/t_par:.1f}x LIF={lif:.2f}")
+    #     print(f"{n_chunks:4d} chunks {t_par:.3f}s {t_serial/t_par:.1f}x LIF={lif:.2f}")
 
     #-------------------------------------------------
 
