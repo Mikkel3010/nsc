@@ -96,19 +96,60 @@ if __name__ == "__main__":
     X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
     cluster = LocalCluster(n_workers=8, threads_per_worker=1)
     client = Client(cluster)
+
+    serial_time = 0.059 
+    t_min = 100000
+    n_chunk_optim = 9999
+    LIF_min = (1,9999)
+
     client.run(lambda: mandelbrot_chunk(0, 8, 8, X_MIN, X_MAX, # warm up all workers
     Y_MIN, Y_MAX, 10))
-    for n_chunk_size in [1,2,4,8,16,32,64,128,256,512,1024]:
+
+
+    chunk_sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
+    times_list = []
+    for n_chunk_size in chunk_sizes:
         times = []
         for _ in range(3):
             t0 = time.perf_counter()
             result = mandelbrot_dask(N, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter, n_chunks=n_chunk_size)
             times.append(time.perf_counter() - t0)
-                #     lif = n_workers * t_par / t_serial - 1
         median_t = statistics.median(times)
-        print(f"Dask local (n_chunks=32): {median_t:.3f} s")
+        lif = (8 * median_t / serial_time) - 1 # 8 from 8 workers
+        times_list.append(median_t)   
+        if median_t < t_min:
+            n_chunk_optim=n_chunk_size
+        if lif < LIF_min[1]:
+            LIF_min = (n_chunk_size, lif,)
+        print(f"{n_chunk_size} | {median_t} | {serial_time/median_t} | {lif}")
+
     client.close(); cluster.close()
 
+    fig, ax = plt.subplots()
+
+    # time vs chunks
+    ax.plot(chunk_sizes, times_list, marker="o")
+
+    ax.set_xlabel("n_chunks")
+    ax.set_ylabel("Time (s)")
+    # best point
+    best_idx = times_list.index(min(times_list))
+    ax.plot(chunk_sizes[best_idx], times_list[best_idx], marker="*", markersize=15)
+    ax.annotate(
+        f"best: {chunk_sizes[best_idx]} ({times_list[best_idx]:.2f}s)",
+        (chunk_sizes[best_idx], times_list[best_idx]),
+        xytext=(5, 5),
+        textcoords="offset points",
+    )
+    ax.set_xscale("log", base=2)
+
+    # adding serial time as horizontal line:
+    ax.hlines(0.059, 0, 1024, label="Serial", colors="gray", linestyles="dashed")
+
+    plt.title(f"Chunk sweep ({N}x{N}, 8 workers)")
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+    plt.show()
 
 
     # L5-M2 and M3-------------------------------------------------------------------
