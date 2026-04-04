@@ -4,10 +4,8 @@ import numpy as np
 # import matplotlib.pyplot as plt
 import pandas as pd
 from numba import njit, jit
-from evaluations import benchmark
 from multiprocessing import Pool
 import numpy as np
-import matplotlib.pyplot as plt
 from pathlib import Path
 import os
 import statistics
@@ -125,31 +123,31 @@ if __name__ == "__main__":
 
     client.close()
 
-    fig, ax = plt.subplots()
+    # fig, ax = plt.subplots()
 
     # time vs chunks
-    ax.plot(chunk_sizes, times_list, marker="o")
+    # ax.plot(chunk_sizes, times_list, marker="o")
 
-    ax.set_xlabel("n_chunks")
-    ax.set_ylabel("Time (s)")
-    # best point
-    best_idx = times_list.index(min(times_list))
-    ax.plot(chunk_sizes[best_idx], times_list[best_idx], marker="*", markersize=15)
-    ax.annotate(
-        f"best: {chunk_sizes[best_idx]} ({times_list[best_idx]:.2f}s)",
-        (chunk_sizes[best_idx], times_list[best_idx]),
-        xytext=(5, 5),
-        textcoords="offset points",
-    )
-    ax.set_xscale("log", base=2)
+    # ax.set_xlabel("n_chunks")
+    # ax.set_ylabel("Time (s)")
+    # # best point
+    # best_idx = times_list.index(min(times_list))
+    # ax.plot(chunk_sizes[best_idx], times_list[best_idx], marker="*", markersize=15)
+    # ax.annotate(
+    #     f"best: {chunk_sizes[best_idx]} ({times_list[best_idx]:.2f}s)",
+    #     (chunk_sizes[best_idx], times_list[best_idx]),
+    #     xytext=(5, 5),
+    #     textcoords="offset points",
+    # )
+    # ax.set_xscale("log", base=2)
 
-    # adding serial time as horizontal line:
-    ax.hlines(serial_time, 0, 1024, label="Serial", colors="gray", linestyles="dashed")
+    # # adding serial time as horizontal line:
+    # ax.hlines(serial_time, 0, 1024, label="Serial", colors="gray", linestyles="dashed")
 
-    plt.title(f"Chunk sweep ({N}x{N}, 8 workers)")
-    plt.grid(True, alpha=0.3)
-    plt.tight_layout()
-    plt.show()
+    # plt.title(f"Chunk sweep ({N}x{N}, 8 workers)")
+    # plt.grid(True, alpha=0.3)
+    # plt.tight_layout()
+    # plt.show()
 
 
     # L5-M2 and M3-------------------------------------------------------------------
