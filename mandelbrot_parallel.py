@@ -94,7 +94,7 @@ if __name__ == "__main__":
     # L6-M1 ---------------------------------------------------------------
     N, max_iter = 1024, 100
     X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
-    cluster = LocalCluster(n_workers=8, threads_per_worker=1)
+    cluster = LocalCluster(n_workers=6, threads_per_worker=1)
     client = Client(cluster)
 
     serial_time = 0.059 
@@ -115,7 +115,7 @@ if __name__ == "__main__":
             result = mandelbrot_dask(N, X_MIN, X_MAX, Y_MIN, Y_MAX, max_iter, n_chunks=n_chunk_size)
             times.append(time.perf_counter() - t0)
         median_t = statistics.median(times)
-        lif = (8 * median_t / serial_time) - 1 # 8 from 8 workers
+        lif = (6 * median_t / serial_time) - 1 # 8 from 8 workers
         times_list.append(median_t)   
         if median_t < t_min:
             n_chunk_optim=n_chunk_size
