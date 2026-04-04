@@ -91,13 +91,13 @@ def mandelbrot_dask(N, x_min, x_max, y_min, y_max,
 
 if __name__ == "__main__":
     
-    # L6-M1 ---------------------------------------------------------------
-    N, max_iter = 1024, 100
+    # # L6-M1 ---------------------------------------------------------------
+    N, max_iter = 4096, 100
     X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
-    cluster = LocalCluster(n_workers=6, threads_per_worker=1)
-    client = Client(cluster)
+    client = Client("tcp://10.92.1.35:8786")
 
-    serial_time = 0.059 
+
+    serial_time = 0.991 #0.059 at 1024, 0.991s at 4096
     t_min = 100000
     n_chunk_optim = 9999
     LIF_min = (1,9999)
@@ -123,7 +123,7 @@ if __name__ == "__main__":
             LIF_min = (n_chunk_size, lif,)
         print(f"{n_chunk_size} | {median_t} | {serial_time/median_t} | {lif}")
 
-    client.close(); cluster.close()
+    client.close()
 
     fig, ax = plt.subplots()
 
@@ -144,7 +144,7 @@ if __name__ == "__main__":
     ax.set_xscale("log", base=2)
 
     # adding serial time as horizontal line:
-    ax.hlines(0.059, 0, 1024, label="Serial", colors="gray", linestyles="dashed")
+    ax.hlines(serial_time, 0, 1024, label="Serial", colors="gray", linestyles="dashed")
 
     plt.title(f"Chunk sweep ({N}x{N}, 8 workers)")
     plt.grid(True, alpha=0.3)
@@ -153,8 +153,8 @@ if __name__ == "__main__":
 
 
     # L5-M2 and M3-------------------------------------------------------------------
-    # N, max_iter = 1024, 100
-    # n_workers = 6  # My optimum was 6
+    # N, max_iter = 4096, 100
+    # n_workers = 8  # My optimum was 6
     # X_MIN, X_MAX, Y_MIN, Y_MAX = -2.5, 1.0, -1.25, 1.25
 
     # # warm up JIT
