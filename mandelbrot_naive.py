@@ -1,23 +1,35 @@
-
-import time
 import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
 
 test_point = 1 + 1j*0.5
 
 # @profile
 def mandelbrot_point(x, y, max_iter):
-    z = 0
+    z = 0j
     c = x + 1j*y
-    iter_count = 0
-    while abs(z) < 2 and iter_count < max_iter:
-        z = z**2 + c
-        iter_count += 1
-    return iter_count
+
+    for n in range(max_iter):
+        if z.real*z.real + z.imag*z.imag > 4:
+            return n
+        z = z*z + c
+
+    return max_iter
 
 # @profile
-def compute_mandelbrot_grid_naive(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter, dtype=np.float64):
+def compute_mandelbrot_grid_naive(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter):
+    """Computes a grid a of mandelbrot point and outputs the results as a numpy array of the iteration count.
+
+    Args:
+        x_min (np.float32): Value of the min range of x-axis
+        x_max (np.float32): Value of the max range of x-axis
+        y_min (np.float32): Value of the min range of y-axis
+        y_max (np.float32): Value of the max range of y-axis
+        dimsize_x (int): Pixel count on x-axis
+        dimsize_y (int): Pixel count on y-axis
+        max_iter (int): max allowed iteration on each pixel
+
+    Returns:
+        np.array: list of pixel values. 
+    """
     point_list = []
     for x in np.linspace(x_min, x_max, num=dimsize_x):
         for y in np.linspace(y_min, y_max, num=dimsize_y):
@@ -42,7 +54,7 @@ def compute_mandelbrot_grid_naive(x_min, x_max, y_min, y_max, dimsize_x, dimsize
 params = (-2, 1, -1.5, 1.5, 1024, 1024, 100)
 
 
-compute_mandelbrot_grid_naive(*params)
+results = compute_mandelbrot_grid_naive(*params)
 
 #compute_mandelbrot_grid(-2, 1, -1.5, 1.5, 8192, 8192, max_iter=100)
 

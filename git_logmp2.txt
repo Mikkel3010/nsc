@@ -1,0 +1,205 @@
+2026-04-04 1e1b04f final version before M2-handin
+
+ MP2.ipynb              | 165 ++++++++++++++++++++++++++++++++++++++-----------
+ mandelbrot_parallel.py |  14 ++++-
+ 2 files changed, 142 insertions(+), 37 deletions(-)
+2026-04-04 a398a03 remove matplotlib
+
+ mandelbrot_parallel.py | 48 +++++++++++++++++++++++-------------------------
+ 1 file changed, 23 insertions(+), 25 deletions(-)
+2026-04-04 79ea25c changed client to serv
+
+ .DS_Store                                          | Bin 8196 -> 8196 bytes
+ MP2.ipynb                                          |  57 ++++++++++++++++++---
+ ...elbrot_parallel.mandelbrot_chunk-32.py311.1.nbc | Bin 0 -> 36640 bytes
+ ...ndelbrot_parallel.mandelbrot_chunk-32.py311.nbi | Bin 0 -> 552 bytes
+ ...elbrot_parallel.mandelbrot_pixel-21.py311.1.nbc | Bin 0 -> 12977 bytes
+ ...ndelbrot_parallel.mandelbrot_pixel-21.py311.nbi | Bin 0 -> 541 bytes
+ mandelbrot_parallel.py                             |  18 +++----
+ 7 files changed, 59 insertions(+), 16 deletions(-)
+2026-04-04 f993949 added M3 and final update to L6
+
+ MP2.ipynb              | 18 +++++++++++++++++-
+ mandelbrot_parallel.py |  4 ++--
+ 2 files changed, 19 insertions(+), 3 deletions(-)
+2026-04-04 8f2a4d7 added L6-M2
+
+ MP2.ipynb              | 15 ++++++++++++++-
+ mandelbrot_parallel.py | 47 ++++++++++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 58 insertions(+), 4 deletions(-)
+2026-04-04 d5cade7 added L6-M1
+
+ MP2.ipynb              |  25 +++++++++++
+ mandelbrot_parallel.py | 110 ++++++++++++++++++++++++++++++++-----------------
+ 2 files changed, 97 insertions(+), 38 deletions(-)
+2026-04-03 5327d41 added L5-M2-M3
+
+ MP2.ipynb | 53 ++++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 44 insertions(+), 9 deletions(-)
+2026-04-03 682cbea added updated results for L5-M1-M2
+
+ MP2.ipynb                                          |  37 ++++++++++++-
+ ...elbrot_parallel.mandelbrot_chunk-29.py311.1.nbc | Bin 36898 -> 36727 bytes
+ ...ndelbrot_parallel.mandelbrot_chunk-29.py311.nbi | Bin 552 -> 552 bytes
+ ...elbrot_parallel.mandelbrot_pixel-18.py311.1.nbc | Bin 12977 -> 13060 bytes
+ ...ndelbrot_parallel.mandelbrot_pixel-18.py311.nbi | Bin 541 -> 541 bytes
+ mandelbrot_parallel.py                             |  57 +++++++++++++++++++--
+ 6 files changed, 87 insertions(+), 7 deletions(-)
+2026-04-03 13b8cdf added L5M1
+
+ ...elbrot_parallel.mandelbrot_chunk-29.py311.1.nbc | Bin 0 -> 36898 bytes
+ ...ndelbrot_parallel.mandelbrot_chunk-29.py311.nbi | Bin 0 -> 552 bytes
+ ...elbrot_parallel.mandelbrot_pixel-18.py311.1.nbc | Bin 0 -> 12977 bytes
+ ...ndelbrot_parallel.mandelbrot_pixel-18.py311.nbi | Bin 0 -> 541 bytes
+ mandelbrot_parallel.py                             |  27 ++++++++++++---------
+ 5 files changed, 15 insertions(+), 12 deletions(-)
+2026-04-02 6b95e0c final L4
+
+ .DS_Store                      | Bin 8196 -> 8196 bytes
+ miniproject.ipynb => MP1.ipynb |   0
+ MP2.ipynb                      |  75 +++++++++++++++++++++
+ ParallelMandelbrotMP2M1.py     |  45 -------------
+ mandelbrot.png                 | Bin 0 -> 180221 bytes
+ mandelbrot_parallel.py         | 148 +++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 223 insertions(+), 45 deletions(-)
+2026-04-02 a2bbdd2 Added fix to L4-M1
+
+ ...andelbrotMP2M1.py => ParallelMandelbrotMP2M1.py |  19 +--
+ __pycache__/evaluations.cpython-311.pyc            | Bin 0 -> 5527 bytes
+ __pycache__/mandelbrot_naive_namba.cpython-311.pyc | Bin 1756 -> 1756 bytes
+ ...mandelbrot_naive_namba_parralel.cpython-311.pyc | Bin 1849 -> 1849 bytes
+ evaluations.py                                     | 149 +++++++++++----------
+ precision_comparison.png                           | Bin 0 -> 79360 bytes
+ 6 files changed, 79 insertions(+), 89 deletions(-)
+2026-04-02 7cc5d1e added L4 M1
+
+ .DS_Store                     | Bin 0 -> 8196 bytes
+ .vscode/settings.json         |   4 ++
+ L4/Monte_carlo.py             |  57 ++++++++++++++++
+ L4/ParallelMandelbrotMP2M1.py |  56 ++++++++++++++++
+ evaluations.py                | 148 ++++++++++++++++++++++++++++++++++++++++++
+ git_log.txt                   | 122 ++++++++++++++++++++++++++++++++++
+ test.py                       | 148 +-----------------------------------------
+ 7 files changed, 390 insertions(+), 145 deletions(-)
+2026-03-03 7a5f190 added milestone for hand-in
+
+ __pycache__/mandelbrot_naive.cpython-311.pyc       | Bin 1761 -> 1830 bytes
+ __pycache__/mandelbrot_naive.cpython-314.pyc       | Bin 1476 -> 1568 bytes
+ __pycache__/mandelbrot_naive_namba.cpython-311.pyc | Bin 0 -> 1756 bytes
+ ...mandelbrot_naive_namba_parralel.cpython-311.pyc | Bin 0 -> 1849 bytes
+ __pycache__/mandelbrot_numpy.cpython-311.pyc       | Bin 1302 -> 1346 bytes
+ __pycache__/mandelbrot_numpy_namba.cpython-311.pyc | Bin 1308 -> 1609 bytes
+ mandelbrot_naive.py                                |   6 +-
+ mandelbrot_naive_namba.py                          |  46 +++++-----
+ mandelbrot_naive_namba_parralel.py                 |  41 +++++++++
+ mandelbrot_numpy.py                                |   4 +-
+ mandelbrot_numpy_namba.py                          |  45 ----------
+ miniproject.ipynb                                  |  79 +++++++++++++++++
+ profiling.py                                       |   5 +-
+ test.py                                            |  98 +++++++++++++++++++--
+ 14 files changed, 242 insertions(+), 82 deletions(-)
+2026-02-26 cc531b1 update ms2
+
+ miniproject.ipynb | 29 ++++++++++++++++++++++++++++-
+ 1 file changed, 28 insertions(+), 1 deletion(-)
+2026-02-26 d76dd31 Milestone 2 added
+
+ __pycache__/mandelbrot_naive.cpython-311.pyc    | Bin 1698 -> 1761 bytes
+ mandelbrot_naive.py                             |   8 +++--
+ mandelbrot_naive.py.lprof                       | Bin 0 -> 415 bytes
+ mandelbrot_numpy copy.py => mandelbrot_numpy.py |   8 ++++-
+ mandelbrot_numpy.py.lprof                       | Bin 0 -> 276 bytes
+ miniproject.ipynb                               |  40 +++++++++++++++++++++++-
+ naive_profile.prof                              | Bin 2789 -> 0 bytes
+ numpy_profile.prof                              | Bin 5375 -> 0 bytes
+ profiling.py                                    |   8 +++--
+ profiling.py.lprof                              | Bin 0 -> 208 bytes
+ 10 files changed, 58 insertions(+), 6 deletions(-)
+2026-02-26 8033ec0 added MP1-ms1
+
+ __pycache__/mandelbrot.cpython-314.pyc             | Bin 0 -> 1470 bytes
+ __pycache__/mandelbrot_naive.cpython-311.pyc       | Bin 0 -> 1698 bytes
+ __pycache__/mandelbrot_naive.cpython-314.pyc       | Bin 0 -> 1476 bytes
+ __pycache__/mandelbrot_numpy.cpython-311.pyc       | Bin 1296 -> 1302 bytes
+ __pycache__/mandelbrot_numpy_namba.cpython-311.pyc | Bin 0 -> 1308 bytes
+ mandelbrot.py => mandelbrot_naive.py               |   2 +-
+ mandelbrot_naive_namba.py                          |  45 +++++++++++++++++++++
+ mandelbrot_numpy.py => mandelbrot_numpy copy.py    |   4 +-
+ mandelbrot_numpy_namba.py                          |  45 +++++++++++++++++++++
+ miniproject.ipynb                                  |  40 ++++++++++++++++++
+ naive_profile.prof                                 | Bin 0 -> 2789 bytes
+ numpy_profile.prof                                 | Bin 0 -> 5375 bytes
+ profiling.py                                       |  23 +++++++++++
+ test.py                                            |  13 ++++--
+ 14 files changed, 167 insertions(+), 5 deletions(-)
+2026-02-19 1d74da2 added results
+
+ __pycache__/mandelbrot_numpy.cpython-311.pyc | Bin 1296 -> 1296 bytes
+ test.py                                      |  34 +++++++++++++++++++++++----
+ 2 files changed, 30 insertions(+), 4 deletions(-)
+2026-02-19 7866d79 milestone4 for lecture2 as seperate file
+
+ lec2mileston3.py | 51 +++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 51 insertions(+)
+2026-02-19 601a4ba test of naive is Median: 0.5747s (min=0.5738, max=0.5817)
+
+ __pycache__/mandelbrot_numpy.cpython-311.pyc | Bin 0 -> 1296 bytes
+ mandelbrot_numpy.py                          |  17 +++++------------
+ test.py                                      |  10 ++++++++--
+ 3 files changed, 13 insertions(+), 14 deletions(-)
+2026-02-19 29c3cf1 added milestone 1 and 2
+
+ __pycache__/mandelbrot.cpython-311.pyc | Bin 0 -> 1686 bytes
+ mandelbrot.py                          |  18 +++++-------
+ mandelbrot_numpy.py                    |  50 +++++++++++++++++++++++++++++++++
+ test.py                                |  33 ++++++++++++++--------
+ 4 files changed, 78 insertions(+), 23 deletions(-)
+2026-02-19 d25ba16 added results from first lecture
+
+ mandelbrot.py              | 6 +++---
+ test_results_1_lecture.txt | 1 +
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+2026-02-19 0da5d7b remove files
+
+ Miniforge3-Darwin-arm64.sh | 262628 ------------------------------------------
+ environment                |      0
+ 2 files changed, 262628 deletions(-)
+2026-02-19 e391f7c updated yml
+
+ Miniforge3-Darwin-arm64.sh        | 262628 +++++++++++++++++++++++++++++++++++
+ environment                       |      0
+ enviroment.yml => environment.yml |    121 +-
+ 3 files changed, 262689 insertions(+), 60 deletions(-)
+2026-02-05 5fb4e7f Computation took 3.672 seconds
+
+ mandelbrot.py | 13 ++++++-------
+ 1 file changed, 6 insertions(+), 7 deletions(-)
+2026-02-05 88a7b2e created mandelbrot_grid function
+
+ mandelbrot.py | 34 ++++++++++++++++++++++++++++------
+ 1 file changed, 28 insertions(+), 6 deletions(-)
+2026-02-05 e6472a0 added mandelbrot_point function
+
+ mandelbrot.py | 29 +++++++++++++++++++++++++++--
+ 1 file changed, 27 insertions(+), 2 deletions(-)
+2026-02-05 ada687c added mandelbrot func
+
+ mandelbrot.py | 3 +++
+ 1 file changed, 3 insertions(+)
+2026-02-05 844fac1 added mandelbrot skeleton
+
+ mandelbrot.py | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+2026-02-05 a9ce4ef add readme
+
+ README.md | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+2026-02-05 1d026d5 first commit
+
+ enviroment.yml | 172 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ main.ipynb     |   0
+ 2 files changed, 172 insertions(+)
+2026-02-05 a9ad911 first commit
+
+ test.py | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
