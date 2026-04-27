@@ -1,25 +1,27 @@
 import pyopencl as cl
 import numpy as np
 
+
 KERNEL_SRC = """
+#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 __kernel void mandelbrot(
     __global int *result,
-    const float x_min, const float x_max,
-    const float y_min, const float y_max,
+    const double x_min, const double x_max,
+    const double y_min, const double y_max,
     const int N, const int max_iter)
 {
     int col = get_global_id(0);
     int row = get_global_id(1);
     if (col >= N || row >= N) return;   // guard against over-launch
 
-    float c_real = x_min + col * (x_max - x_min) / (float)N;
-    float c_imag = y_min + row * (y_max - y_min) / (float)N;
+    double c_real = x_min + col * (x_max - x_min) / (double)N;
+    double c_imag = y_min + row * (y_max - y_min) / (double)N;
     
-    float zr = 0.0f, zi = 0.0f;
+    double zr = 0.0, zi = 0.0;
     int count = 0;
-    while (count < max_iter && zr*zr + zi*zi <= 4.0f) {
-        float tmp = zr*zr - zi*zi + c_real;
-        zi = 2.0f * zr * zi + c_imag;
+    while (count < max_iter && zr*zr + zi*zi <= 4.0) {
+        double tmp = zr*zr - zi*zi + c_real;
+        zi = 2.0 * zr * zi + c_imag;
         zr = tmp;
         count++;
     }
@@ -29,6 +31,9 @@ __kernel void mandelbrot(
 """
 
 ctx   = cl.create_some_context(interactive=False)
+dev = ctx.devices[0]
+if "cl_khr_fp64" not in dev.extensions:
+    print("No native fp64 -- Apple Silicon: emulated, expect large slowdown")
 queue = cl.CommandQueue(ctx)
 prog  = cl.Program(ctx, KERNEL_SRC).build()
 
@@ -43,8 +48,8 @@ image_dev = cl.Buffer(ctx, cl.mem_flags.WRITE_ONLY, image.nbytes)
 prog.mandelbrot(
     queue, (N, N), None,      # global size (N, N); let OpenCL pick local
     image_dev,
-    np.float32(X_MIN), np.float32(X_MAX),
-    np.float32(Y_MIN), np.float32(Y_MAX),
+    np.float64(X_MIN), np.float64(X_MAX),
+    np.float64(Y_MIN), np.float64(Y_MAX),
     np.int32(N), np.int32(MAX_ITER),
 )
 
@@ -56,16 +61,16 @@ import time, matplotlib.pyplot as plt
 
 # --- Warm up (first launch triggers a kernel compile) ---
 prog.mandelbrot(queue, (64, 64), None, image_dev,
-                np.float32(X_MIN), np.float32(X_MAX),
-                np.float32(Y_MIN), np.float32(Y_MAX),
+                np.float64(X_MIN), np.float64(X_MAX),
+                np.float64(Y_MIN), np.float64(Y_MAX),
                 np.int32(64), np.int32(MAX_ITER))
 queue.finish()
 
 # --- Time the real run ---
 t0 = time.perf_counter()
 prog.mandelbrot(queue, (N, N), None, image_dev,
-                np.float32(X_MIN), np.float32(X_MAX),
-                np.float32(Y_MIN), np.float32(Y_MAX),
+                np.float64(X_MIN), np.float64(X_MAX),
+                np.float64(Y_MIN), np.float64(Y_MAX),
                 np.int32(N), np.int32(MAX_ITER))
 queue.finish()
 elapsed = time.perf_counter() - t0
