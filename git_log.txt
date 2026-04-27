@@ -1,3 +1,138 @@
+2026-04-27 5c3f0f3 added L10 M2 and M3 to performance notebook
+
+ MP3-MikkelRoerbaek.ipynb                 |  15 ++--
+ benchmark_mp3.png                        | Bin 0 -> 30913 bytes
+ mandelbrot_gpu32.py                      | 113 +++++++++++++++++++++++++++++++
+ mandelbrot_gpu.py => mandelbrot_gpu64.py |  33 +++++----
+ 4 files changed, 137 insertions(+), 24 deletions(-)
+2026-04-27 9f9f062 added L10 M1 performance notebook
+
+ .DS_Store                                          | Bin 8196 -> 8196 bytes
+ Lecture_material-20260426/basic_test.py            |  78 +++++++
+ .../buddhabrot_simple_opencl.py                    | 175 ++++++++++++++++
+ Lecture_material-20260426/introspection.py         |  27 +++
+ .../iteration_histogram_opencl.py                  | 169 +++++++++++++++
+ Lecture_material-20260426/mandelbrot_opencl.py     | 193 +++++++++++++++++
+ .../mandelbrot_variants_opencl.py                  | 232 +++++++++++++++++++++
+ Lecture_material-20260426/opencl_template.py       |  57 +++++
+ .../workgroup_sweep_opencl.py                      | 163 +++++++++++++++
+ MP3-MikkelRoerbaek.ipynb                           |  33 ++-
+ mandelbrot_gpu.png                                 | Bin 0 -> 80387 bytes
+ mandelbrot_gpu.py                                  |  78 +++++++
+ test.py                                            |  20 --
+ 13 files changed, 1204 insertions(+), 21 deletions(-)
+2026-04-26 bd2e2ae added M2 of Lecture 9, docstring and ruff
+
+ MP3-MikkelRoerbaek.ipynb | 42 ++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 34 insertions(+), 8 deletions(-)
+2026-04-26 9d4b780 Added M1 of lecture 9, testing
+
+ .coverage                                          | Bin 0 -> 53248 bytes
+ MP2.ipynb => MP2-MikkelRoerbaek.ipynb              |  94 +++++++++-
+ MP2-MikkelRoerbaek.zip                             | Bin 0 -> 563022 bytes
+ MP3-MikkelRoerbaek.ipynb                           | 101 ++++++++++
+ MP3/.coverage                                      | Bin 0 -> 53248 bytes
+ __pycache__/mandelbrot_naive.cpython-311.pyc       | Bin 1830 -> 1843 bytes
+ .../test_mandelbrot.cpython-311-pytest-9.0.2.pyc   | Bin 0 -> 5802 bytes
+ git_logmp2.txt                                     | 205 +++++++++++++++++++++
+ mandelbrot_naive.py                                |  36 ++--
+ mandelbrot_numpy.py                                |  19 +-
+ results_naive.csv                                  |  33 ++++
+ test.py                                            |  21 ++-
+ test_mandelbrot.py                                 |  38 ++++
+ 13 files changed, 516 insertions(+), 31 deletions(-)
+2026-04-24 c0a704d added M2 along with the code to mp3_m1_m2.py
+
+ MP3/mp3_m1.py    |  44 ---------------------
+ MP3/mp3_m1_m2.py | 118 +++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 118 insertions(+), 44 deletions(-)
+2026-04-23 fb74ba8 added L8-M1 to MP3 and code into mp3_m1.py
+
+ MP3/mp3_m1.py | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 44 insertions(+)
+2026-04-04 1e1b04f final version before M2-handin
+
+ MP2.ipynb              | 165 ++++++++++++++++++++++++++++++++++++++-----------
+ mandelbrot_parallel.py |  14 ++++-
+ 2 files changed, 142 insertions(+), 37 deletions(-)
+2026-04-04 a398a03 remove matplotlib
+
+ mandelbrot_parallel.py | 48 +++++++++++++++++++++++-------------------------
+ 1 file changed, 23 insertions(+), 25 deletions(-)
+2026-04-04 79ea25c changed client to serv
+
+ .DS_Store                                          | Bin 8196 -> 8196 bytes
+ MP2.ipynb                                          |  57 ++++++++++++++++++---
+ ...elbrot_parallel.mandelbrot_chunk-32.py311.1.nbc | Bin 0 -> 36640 bytes
+ ...ndelbrot_parallel.mandelbrot_chunk-32.py311.nbi | Bin 0 -> 552 bytes
+ ...elbrot_parallel.mandelbrot_pixel-21.py311.1.nbc | Bin 0 -> 12977 bytes
+ ...ndelbrot_parallel.mandelbrot_pixel-21.py311.nbi | Bin 0 -> 541 bytes
+ mandelbrot_parallel.py                             |  18 +++----
+ 7 files changed, 59 insertions(+), 16 deletions(-)
+2026-04-04 f993949 added M3 and final update to L6
+
+ MP2.ipynb              | 18 +++++++++++++++++-
+ mandelbrot_parallel.py |  4 ++--
+ 2 files changed, 19 insertions(+), 3 deletions(-)
+2026-04-04 8f2a4d7 added L6-M2
+
+ MP2.ipynb              | 15 ++++++++++++++-
+ mandelbrot_parallel.py | 47 ++++++++++++++++++++++++++++++++++++++++++++---
+ 2 files changed, 58 insertions(+), 4 deletions(-)
+2026-04-04 d5cade7 added L6-M1
+
+ MP2.ipynb              |  25 +++++++++++
+ mandelbrot_parallel.py | 110 ++++++++++++++++++++++++++++++++-----------------
+ 2 files changed, 97 insertions(+), 38 deletions(-)
+2026-04-03 5327d41 added L5-M2-M3
+
+ MP2.ipynb | 53 ++++++++++++++++++++++++++++++++++++++++++++---------
+ 1 file changed, 44 insertions(+), 9 deletions(-)
+2026-04-03 682cbea added updated results for L5-M1-M2
+
+ MP2.ipynb                                          |  37 ++++++++++++-
+ ...elbrot_parallel.mandelbrot_chunk-29.py311.1.nbc | Bin 36898 -> 36727 bytes
+ ...ndelbrot_parallel.mandelbrot_chunk-29.py311.nbi | Bin 552 -> 552 bytes
+ ...elbrot_parallel.mandelbrot_pixel-18.py311.1.nbc | Bin 12977 -> 13060 bytes
+ ...ndelbrot_parallel.mandelbrot_pixel-18.py311.nbi | Bin 541 -> 541 bytes
+ mandelbrot_parallel.py                             |  57 +++++++++++++++++++--
+ 6 files changed, 87 insertions(+), 7 deletions(-)
+2026-04-03 13b8cdf added L5M1
+
+ ...elbrot_parallel.mandelbrot_chunk-29.py311.1.nbc | Bin 0 -> 36898 bytes
+ ...ndelbrot_parallel.mandelbrot_chunk-29.py311.nbi | Bin 0 -> 552 bytes
+ ...elbrot_parallel.mandelbrot_pixel-18.py311.1.nbc | Bin 0 -> 12977 bytes
+ ...ndelbrot_parallel.mandelbrot_pixel-18.py311.nbi | Bin 0 -> 541 bytes
+ mandelbrot_parallel.py                             |  27 ++++++++++++---------
+ 5 files changed, 15 insertions(+), 12 deletions(-)
+2026-04-02 6b95e0c final L4
+
+ .DS_Store                      | Bin 8196 -> 8196 bytes
+ miniproject.ipynb => MP1.ipynb |   0
+ MP2.ipynb                      |  75 +++++++++++++++++++++
+ ParallelMandelbrotMP2M1.py     |  45 -------------
+ mandelbrot.png                 | Bin 0 -> 180221 bytes
+ mandelbrot_parallel.py         | 148 +++++++++++++++++++++++++++++++++++++++++
+ 6 files changed, 223 insertions(+), 45 deletions(-)
+2026-04-02 a2bbdd2 Added fix to L4-M1
+
+ ...andelbrotMP2M1.py => ParallelMandelbrotMP2M1.py |  19 +--
+ __pycache__/evaluations.cpython-311.pyc            | Bin 0 -> 5527 bytes
+ __pycache__/mandelbrot_naive_namba.cpython-311.pyc | Bin 1756 -> 1756 bytes
+ ...mandelbrot_naive_namba_parralel.cpython-311.pyc | Bin 1849 -> 1849 bytes
+ evaluations.py                                     | 149 +++++++++++----------
+ precision_comparison.png                           | Bin 0 -> 79360 bytes
+ 6 files changed, 79 insertions(+), 89 deletions(-)
+2026-04-02 7cc5d1e added L4 M1
+
+ .DS_Store                     | Bin 0 -> 8196 bytes
+ .vscode/settings.json         |   4 ++
+ L4/Monte_carlo.py             |  57 ++++++++++++++++
+ L4/ParallelMandelbrotMP2M1.py |  56 ++++++++++++++++
+ evaluations.py                | 148 ++++++++++++++++++++++++++++++++++++++++++
+ git_log.txt                   | 122 ++++++++++++++++++++++++++++++++++
+ test.py                       | 148 +-----------------------------------------
+ 7 files changed, 390 insertions(+), 145 deletions(-)
 2026-03-03 7a5f190 added milestone for hand-in
 
  __pycache__/mandelbrot_naive.cpython-311.pyc       | Bin 1761 -> 1830 bytes

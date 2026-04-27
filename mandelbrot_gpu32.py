@@ -1,5 +1,8 @@
 import pyopencl as cl
 import numpy as np
+import time, matplotlib.pyplot as plt
+import statistics
+import time
 
 KERNEL_SRC = """
 __kernel void mandelbrot(
@@ -53,9 +56,6 @@ def gpu32_run():
     cl.enqueue_copy(queue, image, image_dev)
     queue.finish()
 
-
-    import time, matplotlib.pyplot as plt
-
     # --- Warm up (first launch triggers a kernel compile) ---
     prog.mandelbrot(queue, (64, 64), None, image_dev,
                     np.float32(X_MIN), np.float32(X_MAX),
@@ -80,18 +80,12 @@ def gpu32_run():
     return elapsed
 
 
-import statistics
-import time
-import matplotlib.pyplot as plt
-
 def timed(runs=3):
     ts = []
     for _ in range(runs):
         elapsed = gpu32_run()
         ts.append(elapsed)
     return statistics.median(ts)
-
-N = 1024  # match your MP1/MP2 benchmark N
 
 results = {
     "GPU f32": timed(),

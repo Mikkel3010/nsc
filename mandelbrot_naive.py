@@ -15,7 +15,7 @@ def mandelbrot_point(x, y, max_iter):
     return max_iter
 
 # @profile
-def compute_mandelbrot_grid_naive(x_min, x_max, y_min, y_max, dimsize_x, dimsize_y, max_iter):
+def compute_mandelbrot_grid_naive(x_min: np.float32, x_max: np.float32, y_min: np.float32, y_max: np.float32, dimsize_x: int, dimsize_y: int, max_iter: int) -> np.array:
     """Computes a grid a of mandelbrot point and outputs the results as a numpy array of the iteration count.
 
     Args:
